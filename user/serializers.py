@@ -57,9 +57,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ['cpf',
-                  'group',
-                  'created_at',
-                  'updated_at'
+                  'group'
                   ]
 
 

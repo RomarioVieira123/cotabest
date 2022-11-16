@@ -3,110 +3,88 @@
     "model": "product.product",
     "pk": 1,
     "fields": {
-      "name": "Ração para cachorro",
-      "price": 50.00,
-      "minimun": 10,
-      "amount_per_package": 2,
-      "max_availability": 50000
+		"name": "Ração para cachorro",
+		"price": 50.00,
+		"minimun": 10,
+		"amount_per_package": 2,
+		"max_availability": 50000
     }
   },
   {
     "model": "product.product",
     "pk": 2,
     "fields": {
-      "name": "Ração para gato",
-      "price": 50.00,
-      "minimun": 40,
-      "amount_per_package": 7,
-      "max_availability": 50000
+		"name": "Ração para coelho",
+		"price": 30.00,
+		"minimun": 2,
+		"amount_per_package": 2,
+		"max_availability": 70000
     }
   },
   {
     "model": "product.product",
     "pk": 3,
     "fields": {
-      "name": "Ração para passarinho",
-      "price": 13.00,
-      "minimun": 5,
-      "amount_per_package": 3,
-      "max_availability": 50000
+		"name": "Refrigerante",
+		"price": 1.00,
+		"minimun": 120,
+		"amount_per_package": 12,
+		"max_availability": 150000
     }
   },
   {
     "model": "product.product",
     "pk": 4,
     "fields": {
-      "name": "Complexo vitaminico",
-      "price": 20.00,
-      "minimun": 1,
-      "amount_per_package": 3,
-      "max_availability": 50000
+		"name": "Feijão preto",
+		"price": 4.00,
+		"minimun": 24,
+		"amount_per_package": 12,
+		"max_availability": 12000
     }
   },
   {
     "model": "product.product",
     "pk": 5,
     "fields":{
-      "name": "Controle de parasitas internos",
-      "price": 17.50,
-      "minimun": 10,
-      "amount_per_package": 10,
-      "max_availability": 50000
+		"name": "Feijão carioca",
+		"price": 6.00,
+		"minimun": 24,
+		"amount_per_package": 12,
+		"max_availability": 12000
     }
   },
   {
     "model": "product.product",
     "pk": 6,
     "fields": {
-      "name": "Iscas de tilápia",
-      "price": 4.75,
-      "minimun": 20,
-      "amount_per_package": 10,
-      "max_availability": 50000
+		"name": "Arroz agulha",
+		"price": 4.00,
+		"minimun": 40,
+		"amount_per_package": 10,
+		"max_availability": 300
     }
   },
   {
     "model": "product.product",
     "pk": 7,
     "fields": {
-      "name": "Vermífugo para cães e gatos",
-      "price": 5.69,
-      "minimun": 10,
-      "amount_per_package": 20,
-      "max_availability": 100
+		"name": "Ração para gato",
+		"price": 50.00,
+		"minimun": 40,
+		"amount_per_package": 7,
+		"max_availability": 50000
     }
   },
   {
     "model": "product.product",
     "pk": 8,
     "fields": {
-      "name": "Ocitopec injetável",
-      "price": 6.43,
-      "minimun": 15,
-      "amount_per_package": 15,
-      "max_availability": 145
-    }
-  },
-  {
-    "model": "product.product",
-    "pk": 9,
-    "fields": {
-      "name": "Raticida Granulado",
-      "price": 0.78,
-      "minimun": 20,
-      "amount_per_package": 40,
-      "max_availability": 200
-    }
-  },
-  {
-    "model": "product.product",
-    "pk": 10,
-    "fields": {
-      "name": "Inseticida contra baratas e formigas",
-      "price": 81.26,
-      "minimun": 2,
-      "amount_per_package": 4,
-      "max_availability": 100
+		"name": "Pão de forma",
+		"price": 4.50,
+		"minimun": 200,
+		"amount_per_package": 20,
+		"max_availability": 400000
     }
   }
 ]
