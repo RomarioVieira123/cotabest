@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'cotabest.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'dbcotabest.sqlite3',
+        'NAME': BASE_DIR / 'db_cotabest.sqlite3',
     }
 }
 

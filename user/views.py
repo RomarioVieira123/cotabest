@@ -37,7 +37,7 @@ class UsersView(APIView):
             except Exception as e:
                 return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response({'error': "Permission to add denied"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error': "Permission to view denied"}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class UserView(APIView):
