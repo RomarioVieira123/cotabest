@@ -1,6 +1,7 @@
 from django.db import transaction
 from cart.models import Cart, Item
 from product.database import DatabaseProductRepository
+from product.service import ProductService
 
 
 class DatabaseCartRepository:
@@ -41,13 +42,14 @@ class DatabaseCartRepository:
 
     @classmethod
     @transaction.atomic
-    def save(cls, request, products: list):
+    def save(cls, request):
 
-        ammount = 0.0
+        ammount = 0
         quantity = 0
 
-        for p in products:
-            ammount = ammount + float(p.price)
+        for p in request.data:
+            product = ProductService.select_product_not_serialized(request, p['product_id'] )
+            ammount = ammount + (product.price * int(p['quantity']))
 
         for p in request.data:
             quantity = quantity + int(p['quantity'])
@@ -75,13 +77,15 @@ class DatabaseCartRepository:
 
     @classmethod
     @transaction.atomic
-    def update(cls, request, products: list, cart, cart_serializer):
+    def update(cls, request, cart, cart_serializer):
 
-        ammount = 0.0
+        ammount = 0
         quantity = 0
 
-        for p in products:
-            ammount = ammount + float(p.price)
+        for p in request.data:
+            product = ProductService.select_product_not_serialized(request, p['product_id'] )
+            ammount = ammount + (product.price * int(p['quantity']))
+
 
         for p in request.data:
             quantity = quantity + int(p['quantity'])
@@ -99,6 +103,10 @@ class DatabaseCartRepository:
                 quantity=int(p['quantity'])
             )
             itens.append(item)
+
+        cart.ammount = ammount
+        cart.quantity = quantity
+        cart.save()
 
         cart.item.clear()
 

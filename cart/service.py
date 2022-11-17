@@ -15,13 +15,17 @@ class CartService:
 
         return cart_serializer.data
 
-
     @classmethod
     def select_cart_serialized_by_user(cls, request, pk):
         cart = DatabaseCartRepository.select_cart_by_user(request, pk)
         cart_serializer = CartSerializer(cart)
 
         return cart_serializer.data
+
+    @classmethod
+    def select_cart_not_serialized_by_user(cls, request, pk):
+        cart = DatabaseCartRepository.select_cart_by_user(request, pk)
+        return cart
 
     @classmethod
     def select_cart_not_serialized(cls, request, pk):
@@ -42,8 +46,6 @@ class CartService:
 
         return list(carts)
 
-
-
     @classmethod
     def delete_cart_not_serialized(cls, request, pk):
 
@@ -53,8 +55,6 @@ class CartService:
         DatabaseCartRepository.delete_cart(cart_serializer)
 
         return None
-
-
 
     @classmethod
     def update_cart_serialized(cls, request):
@@ -66,23 +66,20 @@ class CartService:
             product = DatabaseProductRepository.select_product(request, prod['product_id'])
 
             if (int(prod['quantity']) * product.amount_per_package) < product.minimun:
-                raise Exception(f'{product.name}{", "}{"Quantity requested: "}{prod["quantity"]}{" below the minimum quantity: "}{product.minimun}{"."}{" Quantity per pack: "}{product.amount_per_package}')
-            else:
-                products.append(product)
+                raise Exception(
+                    f'{product.name}{", "}{"Quantity requested: "}{prod["quantity"]}{" below the minimum quantity: "}{product.minimun}{"."}{" Quantity per pack: "}{product.amount_per_package}')
 
         cart = DatabaseCartRepository.select_cart_by_user(request, request.user.id)
         cart_serializer = CartSerializer(cart)
 
-
         if cart is None:
             raise Exception("Cart not found!")
         else:
-            get_cart = DatabaseCartRepository.update(request, products, cart, cart_serializer)
+            get_cart = DatabaseCartRepository.update(request, cart, cart_serializer)
 
         cart_serializer = CartSerializer(get_cart)
 
         return cart_serializer.data
-
 
     @classmethod
     def insert_cart_serialized(cls, request):
@@ -94,21 +91,16 @@ class CartService:
             product = DatabaseProductRepository.select_product(request, prod['product_id'])
 
             if (int(prod['quantity']) * product.amount_per_package) < product.minimun:
-                raise Exception(f'{product.name}{", "}{"Quantity requested: "}{prod["quantity"]}{" below the minimum quantity: "}{product.minimun}{"."}{" Quantity per pack: "}{product.amount_per_package}')
-            else:
-                products.append(product)
+                raise Exception(
+                    f'{product.name}{", "}{"Quantity requested: "}{prod["quantity"]}{" below the minimum quantity: "}{product.minimun}{"."}{" Quantity per pack: "}{product.amount_per_package}')
 
         cart = DatabaseCartRepository.select_cart_by_user(request, request.user.id)
 
         if cart is None:
-            get_cart = DatabaseCartRepository.save(request, products)
+            get_cart = DatabaseCartRepository.save(request)
         else:
             raise Exception("There is already a shopping cart open for the user")
 
         cart_serializer = CartSerializer(get_cart)
 
         return cart_serializer.data
-
-
-
-

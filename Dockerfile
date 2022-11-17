@@ -18,7 +18,7 @@ RUN chmod +x /app/entrypoint.sh
 COPY cart /app/cart
 COPY cotabest /app/cotabest
 COPY product /app/product
-COPY purchases /app/purchases
+COPY purchase /app/purchases
 COPY user /app/user
 COPY manage.py /app/manage.py
 

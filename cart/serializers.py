@@ -20,7 +20,6 @@ class ItemSerializer(serializers.ModelSerializer):
 
 
 class CartSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
     item = ItemSerializer(many=True)
 
     class Meta:
@@ -29,7 +28,6 @@ class CartSerializer(serializers.ModelSerializer):
             'id',
             'created_at',
             'updated_at',
-            'user',
             'quantity',
             'ammount',
             'item'
