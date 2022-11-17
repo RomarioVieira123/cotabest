@@ -3,7 +3,6 @@ from django.core import serializers
 from cart.database import DatabaseCartRepository
 from cart.serializers import CartSerializer
 from product.database import DatabaseProductRepository
-from user.database import DatabaseUserRepository
 
 
 class CartService:
@@ -48,20 +47,15 @@ class CartService:
 
     @classmethod
     def delete_cart_not_serialized(cls, request, pk):
-
         cart = DatabaseCartRepository.select_cart_by_user(request, pk)
         cart_serializer = CartSerializer(cart)
-
-        DatabaseCartRepository.delete_cart(cart_serializer)
+        DatabaseCartRepository.delete_cart(request, cart_serializer)
 
         return None
 
     @classmethod
     def update_cart_serialized(cls, request):
-        products = []
-
         get_cart = None
-
         for prod in request.data:
             product = DatabaseProductRepository.select_product(request, prod['product_id'])
 
@@ -69,9 +63,13 @@ class CartService:
                 raise Exception(
                     f'{product.name}{", "}{"Quantity requested: "}{prod["quantity"]}{" below the minimum quantity: "}{product.minimun}{"."}{" Quantity per pack: "}{product.amount_per_package}')
 
+            if int(prod['quantity']) > product.max_availability:
+                raise Exception(
+                    f'{product.name}{", "}{"Quantity ordered : "}{prod["quantity"]}{"  exceeds quantity available in stock: "}{product.max_availability}{"."}')
+
+
         cart = DatabaseCartRepository.select_cart_by_user(request, request.user.id)
         cart_serializer = CartSerializer(cart)
-
         if cart is None:
             raise Exception("Cart not found!")
         else:
@@ -83,16 +81,16 @@ class CartService:
 
     @classmethod
     def insert_cart_serialized(cls, request):
-        products = []
-
         get_cart = None
-
         for prod in request.data:
             product = DatabaseProductRepository.select_product(request, prod['product_id'])
 
             if (int(prod['quantity']) * product.amount_per_package) < product.minimun:
                 raise Exception(
                     f'{product.name}{", "}{"Quantity requested: "}{prod["quantity"]}{" below the minimum quantity: "}{product.minimun}{"."}{" Quantity per pack: "}{product.amount_per_package}')
+
+            if int(prod['quantity']) > product.max_availability:
+                raise Exception(f'{product.name}{", "}{"Quantity ordered : "}{prod["quantity"]}{"  exceeds quantity available in stock: "}{product.max_availability}{"."}')
 
         cart = DatabaseCartRepository.select_cart_by_user(request, request.user.id)
 

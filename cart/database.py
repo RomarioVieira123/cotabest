@@ -29,10 +29,14 @@ class DatabaseCartRepository:
 
     @classmethod
     @transaction.atomic()
-    def delete_cart(cls, cart_serialized):
+    def delete_cart(cls, request, cart_serialized):
         cart = Cart.objects.filter(id=cart_serialized.data['id']).first()
 
         for i in cart_serialized.data['item']:
+            product = ProductService.select_product_not_serialized(request, i['product']['id'])
+            product.max_availability = product.max_availability + i['quantity']
+            product.save()
+
             item = cls.select_item(i['id'])
             item.delete()
 
@@ -73,6 +77,11 @@ class DatabaseCartRepository:
         for i in itens:
             cart.item.add(i)
 
+        for p in request.data:
+            product = ProductService.select_product_not_serialized(request, p['product_id'])
+            product.max_availability = product.max_availability - int(p['quantity'])
+            product.save()
+
         return cart
 
     @classmethod
@@ -112,5 +121,11 @@ class DatabaseCartRepository:
 
         for i in itens:
             cart.item.add(i)
+
+        for p in request.data:
+            product = ProductService.select_product_not_serialized(request, p['product_id'])
+            product.max_availability = product.max_availability - int(p['quantity'])
+            product.save()
+
 
         return cart

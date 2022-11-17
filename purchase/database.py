@@ -8,6 +8,24 @@ from purchase.models import Purchase, PurchaseItem
 class DatabasePurchaseRepository:
 
     @classmethod
+    def delete_purchase(cls, purchase_serialized):
+        purchase = Purchase.objects.filter(id=purchase_serialized.data['id']).first()
+
+        for i in purchase_serialized.data['item']:
+            item = cls.select_item(i['id'])
+            item.delete()
+
+        purchase.delete()
+
+        return None
+
+
+    @classmethod
+    def select_item(cls, pk):
+        item = PurchaseItem.objects.filter(id=pk).first()
+        return item
+
+    @classmethod
     def select_purchase_by_user(cls, request, pk):
         purchase = Purchase.objects.filter(user__id=pk).first()
         return purchase
@@ -16,7 +34,6 @@ class DatabasePurchaseRepository:
     def select_purchase(cls, pk):
         purchase = Purchase.objects.filter(id=pk).first()
         return purchase
-
 
 
     @classmethod

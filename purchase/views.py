@@ -31,11 +31,11 @@ class PurchaseView(APIView):
 
     def delete(self, request, pk):
         user_access = UserService.select_user_not_serialized(request, request.auth.payload['user_id'])
-        if user_access.has_perm('purchase.add_purchase'):
+        if user_access.has_perm('purchase.delete_purchase'):
             try:
-                purchase = PurchaseService.create_purchase(request, pk)
-                return Response({'success': True, 'message': None, 'purchase': purchase})
+                PurchaseService.delete_purchase(request, pk)
+                return Response({'success': True, 'message': "Purchase deleted", 'purchase': None})
             except Exception as e:
                 return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response({'error': "Permission to create denied"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error': "Permission to delete denied"}, status=status.HTTP_400_BAD_REQUEST)

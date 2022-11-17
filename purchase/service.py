@@ -31,12 +31,19 @@ class PurchaseService:
         elif cart is None:
             raise Exception("There is no open affection for this user")
         else:
-            cart = CartService.select_cart_serialized_by_user(request, pk)
-            cart_serialized = CartSerializer(cart)
-            p = DatabasePurchaseRepository.save(cart_serialized)
+            cart_serialized = CartService.select_cart_serialized_by_user(request, pk)
+            p = DatabasePurchaseRepository.save(request, cart_serialized)
             purchase_serializer = PurchaseSerializer(p)
 
         return purchase_serializer.data
+
+    @classmethod
+    def delete_purchase(cls, request, pk):
+        purchase = cls.select_purchase_by_user_serialized(request,pk)
+        purchase_serializer = PurchaseSerializer(purchase)
+        DatabasePurchaseRepository.delete_purchase(purchase_serializer)
+
+        return None
 
     @classmethod
     def select_all_users_serialized(cls, pk):
