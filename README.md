@@ -60,6 +60,9 @@ pip install -r requeriments.txt
 
 
 ## Como testar a API. Endpoints principais
+
+Dentro do projeto está um arquivo chamado Cotabes.postman_collection.json que pode ser utilizado para teste.
+
 Consultar permissões: 
 ```sh
 GET /api/v1/permissions/
@@ -77,12 +80,12 @@ Os grupos contém as permissões relativas a cada operação de acordo com o gru
 
 {
   "group-name": "Administradores",
-  "permissions": [13,14,15,16,25,26,27,28,29,30,31,32,33,34,35,36,41,43,44]
+  "permissions": [13,14,15,16,25,26,27,28,29,30,31,32,33,34,35,36,41,43,44,45]
 }
 
 {
   "group-name": "Comuns",
-  "permissions": [25,26,27,28,32,41,43,44]
+  "permissions": [25,26,27,28,32,41,43,44,45]
 }
 ```
 Registrar um usuário / Estrutura : 
@@ -116,7 +119,8 @@ Simulando o acesso a um usuário cadastrado no sistema é necessário a obtenç�
 ``````
 Retorno do login, Ex:
 ```sh
-No token estão todas as permissões atribuídas ao usuário atráves da sua vinculação a um grupo. Essas permissões são verificadas em todoas as operações GET, POST, PUT e DELETE
+No token estão todas as permissões atribuídas ao usuário atráves da sua vinculação a um grupo. Essas permissões são verificadas em todoas as operações GET, POST, PUT e DELETE.
+Caso utilize o postman para teste, inserir o token access em Authorization -> Bearer token
 
 { "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY2NDY1MTkyMCwiaWF0IjoxNjY0NjM3NTIwLCJqdGkiOiIwYTdjMWYwY2U0ZDQ0NDIzYWRhZDAwZjkyMGFhMzkyOSIsInVzZXJfaWQiOjUsInJvbGVzIjpbImF1dGguZGVsZXRlX3VzZXIiLCJhdXRoLmFkZF91c2VyIiwiYXV0aC5jaGFuZ2VfdXNlciIsImF1dGgudmlld191c2VyIl0sImlzX3N0YWZmIjpmYWxzZSwiaXNfc3VwZXJ1c2VyIjpmYWxzZSwidXNlcnMiOnsiaWQiOjUsInVzZXJuYW1lIjoibWFyY2VsYV9tYXJjZWxhIiwiaXNfc3RhZmYiOmZhbHNlLCJpc19zdXBlcnVzZXIiOmZhbHNlfSwicHJvZmlsZSI6eyJjcGYiOiI1MzE4MDc3ODAzMiJ9LCJwcmVmZXJlbmNlc191c2VyIjpudWxsfQ.IbzZ3kvcUTWVvFQ5yPJjz2m340s7rRuYrqlDF8RVnOU", 
 "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjY0NjQ0NzIwLCJpYXQiOjE2NjQ2Mzc1MjAsImp0aSI6IjBiYzViYTQzM2Q3ODRlNjY4ZmYxYjcxZDM4MmNkMjUxIiwidXNlcl9pZCI6NSwicm9sZXMiOlsiYXV0aC5kZWxldGVfdXNlciIsImF1dGguYWRkX3VzZXIiLCJhdXRoLmNoYW5nZV91c2VyIiwiYXV0aC52aWV3X3VzZXIiXSwiaXNfc3RhZmYiOmZhbHNlLCJpc19zdXBlcnVzZXIiOmZhbHNlLCJ1c2VycyI6eyJpZCI6NSwidXNlcm5hbWUiOiJtYXJjZWxhX21hcmNlbGEiLCJpc19zdGFmZiI6ZmFsc2UsImlzX3N1cGVydXNlciI6ZmFsc2V9LCJwcm9maWxlIjp7ImNwZiI6IjUzMTgwNzc4MDMyIn0sInByZWZlcmVuY2VzX3VzZXIiOm51bGx9.nzBLSSrtFdhKajwElL5TH3SP7dg3SFyqo67GKsMIhac" }
@@ -210,6 +214,7 @@ Ao se criar um carrinho a quantidade solicitada do produto é subtraída do valo
 ```
 
 Atualizar um carrinho / Estrutura : 
+
 ```sh
 PUT /api/v1/cart/
 ```
