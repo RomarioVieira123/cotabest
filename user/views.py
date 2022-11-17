@@ -143,6 +143,6 @@ class PermissionsView(APIView):
 
     def get(self, request):
         permissions = Permission.objects.filter(
-            content_type_id__in=[4, 7, 8]).all()
+            content_type_id__in=[4, 7, 8, 9, 10, 11, 12]).all()
         serializer = PermissionSerializer(permissions, many=True)
         return Response(serializer.data)
