@@ -63,6 +63,11 @@ pip install -r requeriments.txt
 
 Dentro do projeto está um arquivo chamado Cotabes.postman_collection.json que pode ser utilizado para teste.
 
+Antes de tudo é necessário subir a aplicação:
+```sh
+docker-compose up --build
+```
+
 Consultar permissões: 
 ```sh
 GET /api/v1/permissions/
